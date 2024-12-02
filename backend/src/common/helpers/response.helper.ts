@@ -1,10 +1,15 @@
 import { ResponseError, ResponseSuccess } from "../types";
 
-export function responseSuccess(message = "ok", code = 200): ResponseSuccess {
+export function responseSuccess<T>(
+	metaData: T,
+	message = "ok",
+	code = 200
+): ResponseSuccess<T> {
 	return {
 		status: "success",
 		message,
 		code,
+		metaData,
 	};
 }
 

@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["omitApi"]
 }
 
 datasource db {
@@ -37,7 +38,7 @@ model images {
 }
 
 model savedimage {
-  saveImgId  Int       @id @default(autoincrement())
+  savedImgId Int       @id @default(autoincrement())
   userId     Int?
   imgId      Int?
   created_at DateTime? @default(now()) @db.Timestamp(0)
