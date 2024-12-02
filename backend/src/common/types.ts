@@ -20,3 +20,8 @@ export type RegisterResponse = {
 	createdAt: Date | null;
 	updatedAt: Date | null;
 };
+
+export type LoginResponse = {
+	accessToken: string;
+	refreshToken: string;
+};

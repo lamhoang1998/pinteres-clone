@@ -53,7 +53,7 @@ model savedimage {
 model users {
   userId     Int          @id @default(autoincrement())
   email      String       @db.VarChar(255)
-  passWord   String?      @db.VarChar(255)
+  passWord   String       @db.VarChar(255)
   fullName   String?      @db.VarChar(255)
   avatar     String?      @db.VarChar(255)
   createdAt  DateTime?    @default(now()) @db.Timestamp(0)
