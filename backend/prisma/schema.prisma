@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model comments {
+  commentId      Int       @id @default(autoincrement())
+  userId         Int?
+  imgId          Int?
+  commentContent String?   @db.VarChar(255)
+  created_at     DateTime? @default(now()) @db.Timestamp(0)
+  updated_at     DateTime? @default(now()) @db.Timestamp(0)
+  users          users?    @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "comments_ibfk_1")
+  images         images?   @relation(fields: [imgId], references: [imgId], onDelete: NoAction, onUpdate: NoAction, map: "comments_ibfk_2")
+
+  @@index([imgId], map: "imgId")
+  @@index([userId], map: "userId")
+}
+
+model images {
+  imgId      Int          @id @default(autoincrement())
+  imgName    String?      @db.VarChar(255)
+  url        String?      @db.VarChar(255)
+  desc       String?      @db.VarChar(255)
+  userId     Int?
+  created_at DateTime?    @default(now()) @db.Timestamp(0)
+  updated_at DateTime?    @default(now()) @db.Timestamp(0)
+  comments   comments[]
+  users      users?       @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "images_ibfk_1")
+  savedimage savedimage[]
+
+  @@index([userId], map: "userId")
+}
+
+model savedimage {
+  saveImgId  Int       @id @default(autoincrement())
+  userId     Int?
+  imgId      Int?
+  created_at DateTime? @default(now()) @db.Timestamp(0)
+  updated_at DateTime? @default(now()) @db.Timestamp(0)
+  users      users?    @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "savedimage_ibfk_1")
+  images     images?   @relation(fields: [imgId], references: [imgId], onDelete: NoAction, onUpdate: NoAction, map: "savedimage_ibfk_2")
+
+  @@index([imgId], map: "imgId")
+  @@index([userId], map: "userId")
+}
+
+model users {
+  userId     Int          @id @default(autoincrement())
+  email      String       @db.VarChar(255)
+  passWord   String?      @db.VarChar(255)
+  fullName   String?      @db.VarChar(255)
+  avatar     String?      @db.VarChar(255)
+  createdAt  DateTime?    @default(now()) @db.Timestamp(0)
+  updatedAt  DateTime?    @default(now()) @db.Timestamp(0)
+  comments   comments[]
+  images     images[]
+  savedimage savedimage[]
+}
