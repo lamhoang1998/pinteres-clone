@@ -1,8 +1,19 @@
 import { NextFunction, Request } from "express";
 import { prisma } from "../common/prisma/init.prisma";
-import { BadRequestError } from "../common/helpers/error.helper";
+import {
+	BadRequestError,
+	UnauthorizedError,
+} from "../common/helpers/error.helper";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { JwtPayload } from "jsonwebtoken";
+
 import tokenService from "./token.service";
+import {
+	ACCESS_TOKEN_SECRET,
+	REFRESH_TOKEN_SECRET,
+} from "../common/constant/app.constant";
+import { LoginUserExist, RefreshTokenUser } from "../common/types";
 
 export const authService = {
 	register: async function (req: Request) {
@@ -49,8 +60,46 @@ export const authService = {
 				`you entered the wrong password, please reenter or register`
 			);
 
-		const tokens = tokenService.createTokens(userExists);
+		const tokens = tokenService.createTokens<LoginUserExist>(userExists);
 		console.log({ tokens });
+
+		return tokens;
+	},
+	refreshToken: async (req: Request) => {
+		const refreshToken = req.headers?.authorization?.split(" ")[1];
+		const accessToken = req.headers[`x-access-token`] as string;
+
+		console.log({ refreshToken, accessToken });
+		if (!refreshToken) throw new UnauthorizedError();
+		if (!accessToken) throw new UnauthorizedError();
+
+		// the verify method check even the expire time, so we use the ignoreExpiration options to omit it, only check if the accesstoken sent to backend from request match access token secret
+		const decodeRefreshToken = jwt.verify(
+			refreshToken,
+			REFRESH_TOKEN_SECRET as string
+		) as JwtPayload;
+
+		const decodeAccessToken = jwt.verify(
+			accessToken,
+			ACCESS_TOKEN_SECRET as string,
+			{
+				ignoreExpiration: true,
+			}
+		) as JwtPayload;
+
+		console.log({ decodeRefreshToken });
+
+		if (decodeRefreshToken.userId !== decodeAccessToken.userId)
+			throw new UnauthorizedError();
+
+		const user = await prisma.users.findUnique({
+			where: {
+				userId: decodeRefreshToken.userId,
+			},
+			select: { userId: true, passWord: true },
+		});
+
+		const tokens = tokenService.createTokens<RefreshTokenUser>(user);
 
 		return tokens;
 	},

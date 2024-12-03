@@ -1,5 +1,5 @@
 import { responseSuccess } from "../common/helpers/response.helper";
-import { LoginResponse, RegisterResponse } from "../common/types";
+import { LoginResponse, RefreshToken, RegisterResponse } from "../common/types";
 import { authService } from "../services/auth.service";
 import { Request, Response, NextFunction } from "express";
 
@@ -24,6 +24,22 @@ export const authController = {
 			const response = responseSuccess<LoginResponse>(
 				result,
 				`login successfully`
+			);
+			res.status(response.code).json(response);
+		} catch (err) {
+			next(err);
+		}
+	},
+	refreshToken: async function (
+		req: Request,
+		res: Response,
+		next: NextFunction
+	) {
+		try {
+			const result = await authService.refreshToken(req);
+			const response = responseSuccess<RefreshToken>(
+				result,
+				`successfully sent back token`
 			);
 			res.status(response.code).json(response);
 		} catch (err) {

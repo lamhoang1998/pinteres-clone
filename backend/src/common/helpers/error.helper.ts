@@ -19,3 +19,19 @@ export class BadRequestError extends Error {
 		this.code = 400;
 	}
 }
+
+export class ForbiddenError extends Error {
+	public code: number;
+	constructor(message = "Forbidden") {
+		super(message);
+		this.code = 403;
+	}
+}
+
+export class UnauthorizedError extends Error {
+	public code: number;
+	constructor(message = "UnauthorizedError") {
+		super(message);
+		this.code = 401;
+	}
+}

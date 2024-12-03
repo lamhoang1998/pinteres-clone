@@ -8,9 +8,9 @@ import {
 } from "../common/constant/app.constant";
 
 const tokenService = {
-	createTokens: (user: { userId: number; passWord: string }) => {
+	createTokens: <T extends { userId: number } | null>(user: T) => {
 		const accessToken = jwt.sign(
-			{ user_id: user.userId },
+			{ userId: user?.userId },
 			ACCESS_TOKEN_SECRET as string,
 			{
 				expiresIn: ACCESS_TOKEN_EXPIRED as string,
@@ -18,7 +18,7 @@ const tokenService = {
 		);
 
 		const refreshToken = jwt.sign(
-			{ user_id: user.userId },
+			{ user_id: user?.userId },
 			REFRESH_TOKEN_SECRET as string,
 			{
 				expiresIn: REFRESH_TOKEN_EXPIRED as string,

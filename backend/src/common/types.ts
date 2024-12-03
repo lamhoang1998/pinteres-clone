@@ -25,3 +25,18 @@ export type LoginResponse = {
 	accessToken: string;
 	refreshToken: string;
 };
+
+export type RefreshToken = {
+	accessToken: string;
+	refreshToken: string;
+};
+
+export type LoginUserExist = {
+	userId: number;
+	passWord: string;
+};
+
+export type RefreshTokenUser = {
+	userId: number;
+	passWord: string;
+} | null;
