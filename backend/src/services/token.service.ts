@@ -18,7 +18,7 @@ const tokenService = {
 		);
 
 		const refreshToken = jwt.sign(
-			{ user_id: user?.userId },
+			{ userId: user?.userId },
 			REFRESH_TOKEN_SECRET as string,
 			{
 				expiresIn: REFRESH_TOKEN_EXPIRED as string,

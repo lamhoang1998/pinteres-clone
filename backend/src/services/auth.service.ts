@@ -87,7 +87,7 @@ export const authService = {
 			}
 		) as JwtPayload;
 
-		console.log({ decodeRefreshToken });
+		console.log({ decodeRefreshToken, decodeAccessToken });
 
 		if (decodeRefreshToken.userId !== decodeAccessToken.userId)
 			throw new UnauthorizedError();
