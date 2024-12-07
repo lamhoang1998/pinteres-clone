@@ -14,5 +14,6 @@ pictureRouter.post(
 );
 
 pictureRouter.get("/pictures", protect, pictureController.getAll);
+pictureRouter.get("/search-picture", protect, pictureController.searchPicture);
 
 export default pictureRouter;

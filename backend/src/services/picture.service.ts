@@ -49,4 +49,21 @@ export const pictureService = {
 			items: allPictures || [],
 		};
 	},
+	searchPicture: async function (req: Request) {
+		let name: string = "";
+
+		name = req.query.name ? (req.query.name as string) : "";
+
+		if (!name) throw new BadRequestError(`please enter something to search`);
+
+		const searchedPictures = await prisma.images.findMany({
+			where: {
+				imgName: {
+					startsWith: name,
+				},
+			},
+		});
+
+		return searchedPictures;
+	},
 };
