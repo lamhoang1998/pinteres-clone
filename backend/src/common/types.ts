@@ -1,5 +1,3 @@
-import { Request } from "express";
-
 export type ResponseSuccess<T> = {
 	status: string;
 	message: string;
@@ -49,3 +47,15 @@ export type User = {
 	fullName: string | null;
 	avatar: string | null;
 } | null;
+
+export type Items =
+	| {
+			imgId: number;
+			imgName: string | null;
+			url: string | null;
+			desc: string | null;
+			userId: number | null;
+			created_at: Date | null;
+			updated_at: Date | null;
+	  }[]
+	| [];

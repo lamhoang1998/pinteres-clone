@@ -13,4 +13,6 @@ pictureRouter.post(
 	pictureController.create
 );
 
+pictureRouter.get("/pictures", protect, pictureController.getAll);
+
 export default pictureRouter;
