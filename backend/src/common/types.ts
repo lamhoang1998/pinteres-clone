@@ -1,3 +1,5 @@
+import { Request } from "express";
+
 export type ResponseSuccess<T> = {
 	status: string;
 	message: string;
@@ -39,4 +41,11 @@ export type LoginUserExist = {
 export type RefreshTokenUser = {
 	userId: number;
 	passWord: string;
+} | null;
+
+export type User = {
+	userId: number;
+	email: string;
+	fullName: string | null;
+	avatar: string | null;
 } | null;
