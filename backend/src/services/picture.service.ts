@@ -35,7 +35,7 @@ export const pictureService = {
 
 		const allPictures = await prisma.images.findMany({
 			take: pageSize,
-			skip: (page = 0 ? page * pageSize : (page - 1) * pageSize),
+			skip: (page - 1) * pageSize,
 			orderBy: {
 				created_at: `desc`,
 			},

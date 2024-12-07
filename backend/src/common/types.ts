@@ -48,7 +48,8 @@ export type User = {
 	avatar: string | null;
 } | null;
 
-export type Items =
+//type get all picture
+type Items =
 	| {
 			imgId: number;
 			imgName: string | null;
@@ -59,3 +60,11 @@ export type Items =
 			updated_at: Date | null;
 	  }[]
 	| [];
+
+export type GetAllPictures = {
+	pageSize: number;
+	page: number;
+	totalItem: number;
+	totalPage: number;
+	items: Items;
+};
