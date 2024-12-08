@@ -66,4 +66,16 @@ export const pictureService = {
 
 		return searchedPictures;
 	},
+
+	getPictureDetails: async function (req: Request) {
+		const { id } = req.params;
+		console.log({ id });
+
+		const pictureDetails = await prisma.images.findUnique({
+			where: { imgId: +id },
+			select: { imgName: true, desc: true },
+		});
+		return pictureDetails;
+		return `pictureDetails`;
+	},
 };

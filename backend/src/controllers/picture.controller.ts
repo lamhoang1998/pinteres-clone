@@ -18,10 +18,7 @@ export const pictureController = {
 	getAll: async function (req: Request, res: Response, next: NextFunction) {
 		try {
 			const result = await pictureService.getAll(req);
-			const response = responseSuccess<GetAllPictures>(
-				result,
-				`get all pictures successfully`
-			);
+			const response = responseSuccess(result, `get all pictures successfully`);
 			console.log({ response });
 			res.status(response.code).json(response);
 		} catch (err) {
@@ -37,6 +34,24 @@ export const pictureController = {
 		try {
 			const result = await pictureService.searchPicture(req);
 			const response = responseSuccess(result, `get pictures successfully`);
+			console.log({ response });
+			res.status(response.code).json(response);
+		} catch (err) {
+			next(err);
+		}
+	},
+
+	getPictureDetails: async function (
+		req: Request,
+		res: Response,
+		next: NextFunction
+	) {
+		try {
+			const result = await pictureService.getPictureDetails(req);
+			const response = responseSuccess(
+				result,
+				`get pictures' details successfully`
+			);
 			console.log({ response });
 			res.status(response.code).json(response);
 		} catch (err) {
