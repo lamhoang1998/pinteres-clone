@@ -73,9 +73,28 @@ export const pictureService = {
 
 		const pictureDetails = await prisma.images.findUnique({
 			where: { imgId: +id },
-			select: { imgName: true, desc: true },
+			select: {
+				imgName: true,
+				desc: true,
+				users: { select: { userId: true, fullName: true } },
+			},
 		});
 		return pictureDetails;
 		return `pictureDetails`;
+	},
+	saveImg: async function (req: Request) {
+		if (!req.params.id)
+			throw new BadRequestError(
+				`please send the id of the picture that you want to save`
+			);
+
+		const savedImage = await prisma.savedimage.create({
+			data: {
+				userId: req.user?.userId,
+				imgId: +req.params.id,
+			},
+		});
+
+		return savedImage;
 	},
 };

@@ -58,4 +58,15 @@ export const pictureController = {
 			next(err);
 		}
 	},
+
+	saveImg: async function (req: Request, res: Response, next: NextFunction) {
+		try {
+			const result = await pictureService.saveImg(req);
+			const response = responseSuccess(result, `saved pictures successfully`);
+			console.log({ response });
+			res.status(response.code).json(response);
+		} catch (err) {
+			next(err);
+		}
+	},
 };
