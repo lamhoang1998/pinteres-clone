@@ -9,14 +9,12 @@ function Register() {
 		formState: { errors },
 	} = useForm<RegisterSchema>({ resolver: zodResolver(registerSchema) });
 
-	console.log("errors", errors);
-
 	const onSubmit = handleSubmit((data) => {
 		console.log(data);
 	});
 
 	return (
-		<form className="flex flex-col gap-5 " onSubmit={onSubmit}>
+		<form className="flex flex-col gap-5" onSubmit={onSubmit}>
 			<h2 className="text-sm font-bold text-center md:text-xl lg:text-3xl">
 				Create an Account
 			</h2>
@@ -70,7 +68,7 @@ function Register() {
 						type="submit"
 						className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl"
 					>
-						Create Account
+						Create account
 					</button>
 				</span>
 			</div>
