@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { RegisterSchema, registerSchema } from "../types/registerSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRegisterMutation } from "../common/api/mutation/mutation";
 
 function Register() {
 	const {
@@ -9,8 +10,11 @@ function Register() {
 		formState: { errors },
 	} = useForm<RegisterSchema>({ resolver: zodResolver(registerSchema) });
 
+	const registerMutation = useRegisterMutation();
+
 	const onSubmit = handleSubmit((data) => {
 		console.log(data);
+		registerMutation.mutate(data);
 	});
 
 	return (
@@ -56,11 +60,11 @@ function Register() {
 				<input
 					id="password"
 					type="password"
-					{...register("password")}
+					{...register("passWord")}
 					className="border rounded w-3/4 py-1 px-2 font-normal"
 				></input>
-				{errors.password && (
-					<span className="text-red-500">{errors.password.message}</span>
+				{errors.passWord && (
+					<span className="text-red-500">{errors.passWord.message}</span>
 				)}
 
 				<span>

@@ -1,18 +1,34 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { noAuthApi } from "../axios/axios";
 import { ENDPOINT } from "../../constants/endpoint.constant";
-import { LoginBody, LoginResult } from "../../../types/auth";
+import {
+	LoginBody,
+	LoginResult,
+	RegisterBody,
+	RegisterResult,
+} from "../../../types/auth";
+import { toast } from "react-toastify";
 
 export function useLoginMutation() {
-	const queryClient = useQueryClient();
-
 	return useMutation({
 		mutationFn: (data: LoginBody) => {
-			console.log("data", data);
 			return noAuthApi.post<LoginResult>(ENDPOINT.AUTH.LOGIN, data);
 		},
 		onSuccess(data, variables, context) {
-			console.log("success");
+			console.log(data);
+			toast.success("sucessfuly login");
+		},
+	});
+}
+
+export function useRegisterMutation() {
+	return useMutation({
+		mutationFn: (data: RegisterBody) => {
+			return noAuthApi.post<RegisterResult>(ENDPOINT.AUTH.REGISTER, data);
+		},
+		onSuccess(data) {
+			console.log(data);
+			toast.success("successfully register");
 		},
 	});
 }
