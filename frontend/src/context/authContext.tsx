@@ -14,6 +14,7 @@ function AuthContextProvider({ children }: { children: React.ReactNode }) {
 			value={{
 				userInfo,
 				setUser: (userInfo) => {
+					console.log("userInfo", userInfo);
 					setUserInfo(userInfo);
 				},
 				isLogged: !!getAccessToken(),

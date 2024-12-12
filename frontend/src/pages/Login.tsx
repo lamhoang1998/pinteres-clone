@@ -2,8 +2,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema, loginSchema } from "../types/loginSchema";
 import { useLoginMutation } from "../common/api/mutation/mutation";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+	const navigate = useNavigate();
+
 	const {
 		register,
 		handleSubmit,
@@ -17,6 +20,7 @@ function Login() {
 	const onSubmit = handleSubmit((data) => {
 		console.log(data);
 		login.mutate(data);
+		navigate("/");
 	});
 
 	return (

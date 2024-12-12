@@ -12,6 +12,8 @@ import { UserInfo } from "../../../types/context.type";
 import { useAuth } from "../../../context/authContext";
 
 export function useLoginMutation() {
+	const { userInfo, setUser } = useAuth();
+
 	return useMutation({
 		mutationFn: (data: LoginBody) => {
 			return noAuthApi.post<LoginResult>(ENDPOINT.AUTH.LOGIN, data);
@@ -19,16 +21,15 @@ export function useLoginMutation() {
 		onSuccess(loginData) {
 			console.log("data", loginData.data.metaData);
 			localStorage.setItem("user", JSON.stringify(loginData.data.metaData));
-
-			toast.success("sucessfuly login");
-			const userInfo: UserInfo = {
+			const user: UserInfo = {
 				userId: loginData.data.metaData.userId,
 				email: loginData.data.metaData.email,
-				refreshToken: loginData.data.metaData.tokens.refreshToken,
+				refreshToken: loginData?.data.metaData.tokens.refreshToken,
 			};
 
-			const { setUser } = useAuth();
-			setUser(userInfo);
+			setUser(user);
+			console.log("userInfoMutation", userInfo);
+			toast.success("sucessfuly login");
 		},
 	});
 }
