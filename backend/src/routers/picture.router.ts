@@ -17,5 +17,15 @@ pictureRouter.get("/pictures", protect, pictureController.getAll);
 pictureRouter.get("/search-picture", protect, pictureController.searchPicture);
 pictureRouter.get("/details/:id", protect, pictureController.getPictureDetails);
 pictureRouter.get("/save-img/:id", protect, pictureController.saveImg);
+pictureRouter.get(
+	"/created-pictures-list/:userId",
+	protect,
+	pictureController.createdPicturesList
+);
+pictureRouter.get(
+	"/saved-pictures-list/:userId",
+	protect,
+	pictureController.savedPicturesList
+);
 
 export default pictureRouter;

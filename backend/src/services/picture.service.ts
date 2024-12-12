@@ -97,4 +97,41 @@ export const pictureService = {
 
 		return savedImage;
 	},
+	createdPicturesList: async function (req: Request) {
+		const createdPictures = await prisma.users.findUnique({
+			where: {
+				userId: +req.params?.userId,
+			},
+			select: {
+				userId: true,
+				fullName: true,
+				images: {
+					select: { imgId: true, imgName: true, desc: true, url: true },
+				},
+			},
+		});
+
+		return createdPictures;
+	},
+	savedPicturesList: async function (req: Request) {
+		const savedPictures = await prisma.users.findUnique({
+			where: {
+				userId: +req.params?.userId,
+			},
+			select: {
+				userId: true,
+				fullName: true,
+				savedimage: {
+					select: {
+						imgId: true,
+						images: {
+							select: { imgId: true, imgName: true, desc: true, url: true },
+						},
+					},
+				},
+			},
+		});
+
+		return savedPictures;
+	},
 };

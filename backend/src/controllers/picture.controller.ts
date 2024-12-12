@@ -69,4 +69,38 @@ export const pictureController = {
 			next(err);
 		}
 	},
+	createdPicturesList: async function (
+		req: Request,
+		res: Response,
+		next: NextFunction
+	) {
+		try {
+			const result = await pictureService.createdPicturesList(req);
+			const response = responseSuccess(
+				result,
+				`get pictures created by user successfully`
+			);
+			console.log({ response });
+			res.status(response.code).json(response);
+		} catch (err) {
+			next(err);
+		}
+	},
+	savedPicturesList: async function (
+		req: Request,
+		res: Response,
+		next: NextFunction
+	) {
+		try {
+			const result = await pictureService.savedPicturesList(req);
+			const response = responseSuccess(
+				result,
+				`get pictures created by user successfully`
+			);
+			console.log({ response });
+			res.status(response.code).json(response);
+		} catch (err) {
+			next(err);
+		}
+	},
 };
