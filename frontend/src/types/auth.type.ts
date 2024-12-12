@@ -3,7 +3,7 @@ export type LoginBody = {
 	passWord: string;
 };
 
-type LoginMetaData = {
+export type LoginMetaData = {
 	userId: number;
 	email: string;
 	tokens: {

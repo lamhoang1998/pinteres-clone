@@ -1,10 +1,11 @@
 import React from "react";
 import { useAuth } from "../context/authContext";
+import { getAccessToken } from "../helpers/auth.helper";
 
 function Home() {
-	const { userInfo, setUser, isLogged } = useAuth();
-	console.log("userInfo", userInfo);
+	const { isLogged } = useAuth();
 	console.log("isLogged", isLogged);
+	console.log("accessToken", getAccessToken());
 	return <div>Home</div>;
 }
 

@@ -10,6 +10,12 @@ import {
 import { toast } from "react-toastify";
 import { UserInfo } from "../../../types/context.type";
 import { useAuth } from "../../../context/authContext";
+import {
+	getAccessToken,
+	setAccessToken,
+	setRefreshToken,
+	setUserToLocal,
+} from "../../../helpers/auth.helper";
 
 export function useLoginMutation() {
 	const { userInfo, setUser } = useAuth();
@@ -20,7 +26,10 @@ export function useLoginMutation() {
 		},
 		onSuccess(loginData) {
 			console.log("data", loginData.data.metaData);
-			localStorage.setItem("user", JSON.stringify(loginData.data.metaData));
+			setUserToLocal(loginData.data.metaData);
+			setAccessToken(loginData.data.metaData.tokens.accessToken);
+			setRefreshToken(loginData.data.metaData.tokens.refreshToken);
+
 			const user: UserInfo = {
 				userId: loginData.data.metaData.userId,
 				email: loginData.data.metaData.email,
@@ -28,7 +37,6 @@ export function useLoginMutation() {
 			};
 
 			setUser(user);
-			console.log("userInfoMutation", userInfo);
 			toast.success("sucessfuly login");
 		},
 	});
