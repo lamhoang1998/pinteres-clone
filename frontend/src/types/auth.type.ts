@@ -4,8 +4,12 @@ export type LoginBody = {
 };
 
 type LoginMetaData = {
-	accessToken: string;
-	refreshToken: string;
+	userId: number;
+	email: string;
+	tokens: {
+		accessToken: string;
+		refreshToken: string;
+	};
 };
 
 export type LoginResult = {
