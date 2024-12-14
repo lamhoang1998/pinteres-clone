@@ -16,12 +16,19 @@ pictureRouter.post(
 pictureRouter.get("/pictures", protect, pictureController.getAll);
 pictureRouter.get("/search-picture", protect, pictureController.searchPicture);
 pictureRouter.get("/details/:id", protect, pictureController.getPictureDetails);
-pictureRouter.get("/save-img/:id", protect, pictureController.saveImg);
+
+pictureRouter.get(
+	"/saved-picture-list-by-user/:userId",
+	protect,
+	pictureController.savedPictureListByUser
+);
+
 pictureRouter.get(
 	"/created-pictures-list/:userId",
 	protect,
 	pictureController.createdPicturesList
 );
+
 pictureRouter.post(
 	"/saved-pictures/:imgId",
 	protect,

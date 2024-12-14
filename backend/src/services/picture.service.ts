@@ -81,13 +81,15 @@ export const pictureService = {
 			},
 		});
 		return pictureDetails;
-		return `pictureDetails`;
 	},
-	saveImg: async function (req: Request) {
-		const savedImage = await prisma.savedimage.create({
-			data: {
-				userId: req.user?.userId,
-				imgId: +req.params.id,
+	savedPictureListByUser: async function (req: Request) {
+		const savedImage = await prisma.savedimage.findMany({
+			where: { userId: req.user?.userId },
+			select: {
+				userId: true,
+				images: {
+					select: { imgId: true, imgName: true, desc: true, url: true },
+				},
 			},
 		});
 
@@ -120,9 +122,24 @@ export const pictureService = {
 			select: { userId: true },
 		});
 
+		const savedByUser = await prisma.savedimage.findFirst({
+			where: {
+				imgId: +req.params.imgId,
+				userId: req.user?.userId,
+			},
+			select: { userId: true },
+		});
+
+		console.log({ savedByUser });
+
 		if (req.user?.userId === createdByUser?.userId)
 			throw new BadRequestError(
 				`This picture is created by user, please send another imgId`
+			);
+
+		if (req.user?.userId === savedByUser?.userId)
+			throw new BadRequestError(
+				`This picture was already created by the user before`
 			);
 
 		const savedPicture = await prisma.savedimage.create({
@@ -139,6 +156,9 @@ export const pictureService = {
 			where: {
 				imgId: +req.params.imgId,
 				userId: req.user?.userId,
+			},
+			select: {
+				userId: true,
 			},
 		});
 

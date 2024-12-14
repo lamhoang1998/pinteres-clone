@@ -59,9 +59,13 @@ export const pictureController = {
 		}
 	},
 
-	saveImg: async function (req: Request, res: Response, next: NextFunction) {
+	savedPictureListByUser: async function (
+		req: Request,
+		res: Response,
+		next: NextFunction
+	) {
 		try {
-			const result = await pictureService.saveImg(req);
+			const result = await pictureService.savedPictureListByUser(req);
 			const response = responseSuccess(result, `saved pictures successfully`);
 			console.log({ response });
 			res.status(response.code).json(response);
