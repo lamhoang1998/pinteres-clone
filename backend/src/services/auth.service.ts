@@ -45,7 +45,7 @@ export const authService = {
 
 		const userExists = await prisma.users.findFirst({
 			where: { email },
-			select: { userId: true, email: true, passWord: true },
+			select: { userId: true, email: true, avatar: true, passWord: true },
 		});
 
 		console.log({ userExists });
@@ -65,7 +65,12 @@ export const authService = {
 		const tokens = tokenService.createTokens<LoginUserExist>(userExists);
 		console.log({ tokens });
 
-		return { userId: userExists.userId, email: userExists.email, tokens };
+		return {
+			userId: userExists.userId,
+			email: userExists.email,
+			avatar: userExists.avatar,
+			tokens,
+		};
 	},
 	refreshToken: async (req: Request) => {
 		const refreshToken = req.headers?.authorization?.split(" ")[1];

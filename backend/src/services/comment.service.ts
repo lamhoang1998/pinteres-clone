@@ -6,7 +6,6 @@ export const commentService = {
 	create: async function (req: Request) {
 		if (!req.body)
 			throw new BadRequestError(`please send comment and picture id`);
-		console.log({ user: req.user });
 		const comment = req.body.comment;
 		const userId = req.user?.userId;
 		const imgId = req.body.imgId;
