@@ -22,10 +22,16 @@ pictureRouter.get(
 	protect,
 	pictureController.createdPicturesList
 );
-pictureRouter.get(
-	"/saved-pictures-list/:userId",
+pictureRouter.post(
+	"/saved-pictures/:imgId",
 	protect,
-	pictureController.savedPicturesList
+	pictureController.savedPicture
+);
+
+pictureRouter.get(
+	"/savedImg-by-user/:imgId",
+	protect,
+	pictureController.savedImgByUser
 );
 
 pictureRouter.delete(

@@ -86,13 +86,27 @@ export const pictureController = {
 			next(err);
 		}
 	},
-	savedPicturesList: async function (
+	savedPicture: async function (
 		req: Request,
 		res: Response,
 		next: NextFunction
 	) {
 		try {
-			const result = await pictureService.savedPicturesList(req);
+			const result = await pictureService.savedPicture(req);
+			const response = responseSuccess(result, `saved picture successfully`);
+			console.log({ response });
+			res.status(response.code).json(response);
+		} catch (err) {
+			next(err);
+		}
+	},
+	savedImgByUser: async function (
+		req: Request,
+		res: Response,
+		next: NextFunction
+	) {
+		try {
+			const result = await pictureService.savedImgByUser(req);
 			const response = responseSuccess(
 				result,
 				`get pictures created by user successfully`
@@ -103,6 +117,7 @@ export const pictureController = {
 			next(err);
 		}
 	},
+
 	deletePicture: async function (
 		req: Request,
 		res: Response,

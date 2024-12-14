@@ -113,26 +113,27 @@ export const pictureService = {
 
 		return createdPictures;
 	},
-	savedPicturesList: async function (req: Request) {
-		const savedPictures = await prisma.users.findUnique({
-			where: {
-				userId: +req.params?.userId,
-			},
-			select: {
-				userId: true,
-				fullName: true,
-				savedimage: {
-					select: {
-						imgId: true,
-						images: {
-							select: { imgId: true, imgName: true, desc: true, url: true },
-						},
-					},
-				},
+	savedPicture: async function (req: Request) {
+		const savedPicture = await prisma.savedimage.create({
+			data: {
+				imgId: +req.params.imgId,
+				userId: req.user?.userId,
 			},
 		});
 
-		return savedPictures;
+		return savedPicture;
+	},
+	savedImgByUser: async function (req: Request) {
+		const savedImg = await prisma.savedimage.findFirst({
+			where: {
+				imgId: +req.params.imgId,
+				userId: req.user?.userId,
+			},
+		});
+
+		console.log({ savedImg });
+
+		return savedImg;
 	},
 	deletePicture: async function (req: Request) {
 		console.log(req.params.imgId);
