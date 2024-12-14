@@ -70,6 +70,7 @@ export const authService = {
 	refreshToken: async (req: Request) => {
 		const refreshToken = req.headers?.authorization?.split(" ")[1];
 		const accessToken = req.headers[`x-access-token`] as string;
+		console.log({ header: req.headers.authorization });
 
 		console.log({ refreshToken, accessToken });
 		if (!refreshToken) throw new UnauthorizedError();

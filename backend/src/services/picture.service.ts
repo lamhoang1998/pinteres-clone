@@ -49,6 +49,7 @@ export const pictureService = {
 			items: allPictures || [],
 		};
 	},
+	//send name as query to request
 	searchPicture: async function (req: Request) {
 		let name: string = "";
 
@@ -83,11 +84,6 @@ export const pictureService = {
 		return `pictureDetails`;
 	},
 	saveImg: async function (req: Request) {
-		if (!req.params.id)
-			throw new BadRequestError(
-				`please send the id of the picture that you want to save`
-			);
-
 		const savedImage = await prisma.savedimage.create({
 			data: {
 				userId: req.user?.userId,
@@ -114,6 +110,21 @@ export const pictureService = {
 		return createdPictures;
 	},
 	savedPicture: async function (req: Request) {
+		if (!req.params.imgId)
+			throw new BadRequestError(
+				`please send the id of the picture that you want to save`
+			);
+
+		const createdByUser = await prisma.images.findUnique({
+			where: { imgId: +req.params.imgId },
+			select: { userId: true },
+		});
+
+		if (req.user?.userId === createdByUser?.userId)
+			throw new BadRequestError(
+				`This picture is created by user, please send another imgId`
+			);
+
 		const savedPicture = await prisma.savedimage.create({
 			data: {
 				imgId: +req.params.imgId,

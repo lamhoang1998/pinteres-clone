@@ -21,7 +21,7 @@ export const userController = {
 			const result = await userService.update(req);
 			const response = responseSuccess(
 				result,
-				`Update user #${req.params.id} successfully`
+				`Update user ${result.fullName} successfully`
 			);
 			res.status(response.code).json(response);
 		} catch (err) {

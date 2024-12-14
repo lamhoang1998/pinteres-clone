@@ -107,10 +107,11 @@ export const pictureController = {
 	) {
 		try {
 			const result = await pictureService.savedImgByUser(req);
-			const response = responseSuccess(
-				result,
-				`get pictures created by user successfully`
-			);
+			console.log({ result });
+			const response =
+				result === null
+					? responseSuccess(result, `this picture is not created by the user`)
+					: responseSuccess(result, `get picture created by user successfully`);
 			console.log({ response });
 			res.status(response.code).json(response);
 		} catch (err) {
