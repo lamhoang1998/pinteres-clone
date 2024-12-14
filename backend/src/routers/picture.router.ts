@@ -28,4 +28,10 @@ pictureRouter.get(
 	pictureController.savedPicturesList
 );
 
+pictureRouter.delete(
+	"/delete/:imgId",
+	protect,
+	pictureController.deletePicture
+);
+
 export default pictureRouter;

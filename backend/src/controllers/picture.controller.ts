@@ -103,4 +103,18 @@ export const pictureController = {
 			next(err);
 		}
 	},
+	deletePicture: async function (
+		req: Request,
+		res: Response,
+		next: NextFunction
+	) {
+		try {
+			const result = await pictureService.deletePicture(req);
+			const response = responseSuccess(result, ` delete picture sucessfully`);
+			console.log({ response });
+			res.status(response.code).json(response);
+		} catch (err) {
+			next(err);
+		}
+	},
 };

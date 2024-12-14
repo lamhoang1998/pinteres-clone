@@ -1,6 +1,7 @@
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["omitApi"]
+
 }
 
 datasource db {
@@ -16,7 +17,7 @@ model comments {
   created_at     DateTime? @default(now()) @db.Timestamp(0)
   updated_at     DateTime? @default(now()) @db.Timestamp(0)
   users          users?    @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "comments_ibfk_1")
-  images         images?   @relation(fields: [imgId], references: [imgId], onDelete: NoAction, onUpdate: NoAction, map: "comments_ibfk_2")
+  images         images?   @relation(fields: [imgId], references: [imgId], onDelete: Cascade, onUpdate: NoAction, map: "comments_ibfk_2")
 
   @@index([imgId], map: "imgId")
   @@index([userId], map: "userId")
@@ -31,7 +32,7 @@ model images {
   created_at DateTime?    @default(now()) @db.Timestamp(0)
   updated_at DateTime?    @default(now()) @db.Timestamp(0)
   comments   comments[]
-  users      users?       @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "images_ibfk_1")
+  users      users?       @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "images_ibfk_1")
   savedimage savedimage[]
 
   @@index([userId], map: "userId")
@@ -44,7 +45,7 @@ model savedimage {
   created_at DateTime? @default(now()) @db.Timestamp(0)
   updated_at DateTime? @default(now()) @db.Timestamp(0)
   users      users?    @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "savedimage_ibfk_1")
-  images     images?   @relation(fields: [imgId], references: [imgId], onDelete: NoAction, onUpdate: NoAction, map: "savedimage_ibfk_2")
+  images     images?   @relation(fields: [imgId], references: [imgId], onDelete: Cascade, onUpdate: NoAction, map: "savedimage_ibfk_2")
 
   @@index([imgId], map: "imgId")
   @@index([userId], map: "userId")

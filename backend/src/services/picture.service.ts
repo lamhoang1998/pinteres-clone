@@ -134,4 +134,13 @@ export const pictureService = {
 
 		return savedPictures;
 	},
+	deletePicture: async function (req: Request) {
+		console.log(req.params.imgId);
+		const deletedImg = await prisma.images.delete({
+			where: {
+				imgId: +req.params.imgId,
+			},
+		});
+		return deletedImg;
+	},
 };
