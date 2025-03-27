@@ -1,4 +1,4 @@
-import { Mutation, useMutation } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { Api, ApiWithToken } from "../axios/axios";
 import { ENDPOINT } from "../../constants/endpoint.constant";
 import {
@@ -13,7 +13,6 @@ import { UploadAvatar } from "../../../types/user.type";
 import { TRes } from "../../../types/app.types";
 import { AddComment, TypeReply } from "../../../types/comment.types";
 import { SaveImg, UploadImg } from "../../../types/picture.type";
-import { ImgFormData } from "../../../component/Form/ImgForm";
 
 export function useLoginMutation() {
 	return useMutation({

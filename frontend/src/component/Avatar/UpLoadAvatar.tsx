@@ -127,10 +127,9 @@
 
 // export default UpLoadAvatar;
 
-import React, { useRef } from "react";
+import { useRef } from "react";
 import styles from "./UpLoadAvatar.module.css";
 import { Button } from "../Button/Button";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 interface UpLoadAvatarProps {
 	avatar: File | null;

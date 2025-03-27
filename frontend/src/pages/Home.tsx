@@ -1,50 +1,41 @@
-import { useState } from "react";
-import { getAccessToken } from "../helpers/auth.helper";
-import {
-	useGetAllPicture,
-	useSavedImgByUser,
-} from "../common/api/queries/images.queries";
-import styles from "./Home.module.css";
-import { checkPathAvatar } from "../helpers/function.helper";
-import { Link } from "react-router-dom";
-import { useSaveImg } from "../common/api/mutation/mutation";
-import { useQueryClient, UseQueryResult } from "@tanstack/react-query";
-import { Images, Items, SavedImg } from "../types/picture.type";
-import { TRes } from "../types/app.types";
-import { AxiosResponse } from "axios";
+import { useGetAllPicture } from "../common/api/queries/images.queries";
+import { Images, Items } from "../types/picture.type";
 import { useAuth } from "../context/authContext";
 import RenderImages from "../component/renderImages/RenderImages";
 import { UserInfo } from "../types/user.type";
 import { useAppSelector } from "../hooks";
 
 function Home() {
-	const [pagination, setPagination] = useState({
-		page: 1,
-		pageSize: 3,
-	});
+	// const [pagination, setPagination] = useState({
+	// 	page: 1,
+	// 	pageSize: 3,
+	// });
 
-	const accessToken = getAccessToken();
+	// const accessToken = getAccessToken();
 
-	const data = useGetAllPicture(pagination.page, pagination.pageSize);
+	const data = useGetAllPicture();
 
-	const queryClient = useQueryClient();
+	console.log("all image", data);
 
-	const saveImg = useSaveImg();
+	// const queryClient = useQueryClient();
 
-	let savedImg: UseQueryResult<TRes<SavedImg>, Error>;
+	// const saveImg = useSaveImg();
+
+	// let savedImg: UseQueryResult<TRes<SavedImg>, Error>;
 
 	const isVerified = useAppSelector((store) => store.userState.info);
 
 	console.log("verified", isVerified);
 
-	if (accessToken) {
-		savedImg = useSavedImgByUser();
-	}
+	// if (accessToken) {
+	// 	savedImg = useSavedImgByUser();
+	// }
 
 	const items = data.data?.data.metaData.items;
 
+	console.log("items", items);
+
 	const { searchResult } = useAuth();
-	console.log("search result home", searchResult);
 
 	return (
 		<div>

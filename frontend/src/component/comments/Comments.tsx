@@ -8,7 +8,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { AddComment } from "../../types/comment.types";
 
 function Comments({ imgId }: { imgId: string | undefined }) {
-	const { data, isLoading, isError, error } = useGetComments(imgId);
+	const { data, isError, error } = useGetComments(imgId);
 
 	const addComment = useAddComment();
 

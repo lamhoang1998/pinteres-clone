@@ -1,12 +1,5 @@
 import { Link } from "react-router-dom";
-import {
-	CreatedImg,
-	Images,
-	Items,
-	RenderImg,
-	SavedImg,
-	SearchImgResult,
-} from "../../types/picture.type";
+import { Images, Items, SavedImg } from "../../types/picture.type";
 import styles from "./RenderImage.module.css";
 import { checkPathAvatar } from "../../helpers/function.helper";
 import { useSaveImg } from "../../common/api/mutation/mutation";

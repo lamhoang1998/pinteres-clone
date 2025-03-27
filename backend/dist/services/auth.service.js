@@ -19,23 +19,32 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const token_service_1 = __importDefault(require("./token.service"));
 const app_constant_1 = require("../common/constant/app.constant");
+const sendEmail_email_1 = __importDefault(require("../common/email/sendEmail.email"));
 exports.authService = {
     register: function (req) {
         return __awaiter(this, void 0, void 0, function* () {
             const { email, passWord, fullName } = req.body;
-            console.log({ email, passWord, fullName });
             const userExist = yield init_prisma_1.prisma.users.findFirst({
                 where: {
                     email,
                 },
             });
-            console.log(userExist);
             if (userExist)
                 throw new error_helper_1.BadRequestError(`Email already existed, please give another email`);
             const hashPassword = bcrypt_1.default.hashSync(passWord, 10);
+            const verificationToken = Math.floor(100000 + Math.random() * 900000).toString();
+            const expirationTime = new Date(Date.now() + 24 * 60 * 60 * 1000);
+            const verificationTokenExpiresAt = expirationTime.toISOString();
             const newUser = yield init_prisma_1.prisma.users.create({
-                data: { email, fullName: fullName, passWord: hashPassword },
+                data: {
+                    email,
+                    fullName: fullName,
+                    passWord: hashPassword,
+                    verificationToken: verificationToken,
+                    verificationTokenExpiresAt: verificationTokenExpiresAt,
+                },
             });
+            (0, sendEmail_email_1.default)(newUser.email, verificationToken);
             return newUser;
         });
     },
@@ -87,5 +96,31 @@ exports.authService = {
         });
         const tokens = token_service_1.default.createTokens(user);
         return tokens;
+    }),
+    verifyToken: (req) => __awaiter(void 0, void 0, void 0, function* () {
+        const { verificationToken } = req.body;
+        if (verificationToken && typeof verificationToken === "string") {
+            const user = yield init_prisma_1.prisma.users.findFirst({
+                where: { verificationToken: verificationToken },
+            });
+            const submittedDate = new Date();
+            if (user && (user === null || user === void 0 ? void 0 : user.verificationTokenExpiresAt)) {
+                if (submittedDate <= (user === null || user === void 0 ? void 0 : user.verificationTokenExpiresAt)) {
+                    yield init_prisma_1.prisma.users.update({
+                        where: { userId: user.userId },
+                        data: {
+                            isVerified: true,
+                        },
+                    });
+                }
+                else {
+                    throw new error_helper_1.BadRequestError("token is invalid");
+                }
+            }
+            return `success`;
+        }
+        else {
+            throw new error_helper_1.BadRequestError("verificationToken is not a string ");
+        }
     }),
 };

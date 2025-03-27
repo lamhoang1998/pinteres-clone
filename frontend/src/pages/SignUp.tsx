@@ -24,7 +24,7 @@ function SignUp() {
 
 	const password = watch("passWord");
 
-	const { isPending, mutate } = useRegisterMutation();
+	const { mutate } = useRegisterMutation();
 
 	const onSubmit = handleSubmit((data) => {
 		console.log(data);

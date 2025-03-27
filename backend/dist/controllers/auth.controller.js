@@ -17,9 +17,7 @@ exports.authController = {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const result = yield auth_service_1.authService.register(req);
-                console.log({ result });
                 const response = (0, response_helper_1.responseSuccess)(result, `registered successfully`);
-                console.log({ response });
                 res.status(response.code).json(response);
             }
             catch (err) {
@@ -51,4 +49,14 @@ exports.authController = {
             }
         });
     },
+    verifyToken: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const result = yield auth_service_1.authService.verifyToken(req);
+            const response = (0, response_helper_1.responseSuccess)(result, `successfully verified email`);
+            res.status(response.code).json(response);
+        }
+        catch (err) {
+            next(err);
+        }
+    }),
 };

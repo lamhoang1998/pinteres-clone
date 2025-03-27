@@ -1,9 +1,7 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { AuthContextType, UserToken } from "../types/context.type";
-import { getAccessToken, getUserFromLocal } from "../helpers/auth.helper";
+import { createContext, useContext, useState } from "react";
+import { AuthContextType } from "../types/context.type";
 import PostImg from "../component/Image/PostImg";
-import ImgForm from "../component/Form/ImgForm";
-import { imgDetails, SearchImgResult } from "../types/picture.type";
+import { imgDetails } from "../types/picture.type";
 import { useSearchImg } from "../common/api/queries/images.queries";
 import EditImg from "../component/Image/EditImg";
 

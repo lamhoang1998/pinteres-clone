@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema, loginSchema } from "../types/loginSchema";
 import { useLoginMutation } from "../common/api/mutation/mutation";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { setAccessToken, setRefreshToken } from "../helpers/auth.helper";
 import { toast } from "react-toastify";
 

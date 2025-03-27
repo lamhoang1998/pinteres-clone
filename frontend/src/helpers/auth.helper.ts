@@ -1,5 +1,3 @@
-import { useAuth } from "../context/authContext";
-import { LoginMetaData } from "../types/auth.type";
 import rootRouter from "../routers/rootRouter";
 
 export function getUserFromLocal() {

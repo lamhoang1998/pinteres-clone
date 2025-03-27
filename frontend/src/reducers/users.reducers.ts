@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getAccessToken, logOut } from "../helpers/auth.helper";
 import { AppDispatch } from "../store";
 import { ENDPOINT } from "../common/constants/endpoint.constant";
-import { Api, ApiWithToken } from "../common/api/axios/axios";
+import { ApiWithToken } from "../common/api/axios/axios";
 import { TRes } from "../types/app.types";
 import { UserInfo } from "../types/user.type";
 

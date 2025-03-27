@@ -1,4 +1,4 @@
-import { Images, imgDetails, SearchImgResult } from "./picture.type";
+import { Images, imgDetails } from "./picture.type";
 
 export type UserToken =
 	| {

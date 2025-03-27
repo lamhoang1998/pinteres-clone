@@ -6,18 +6,18 @@ import {
 	CreatedImg,
 	imgDetails,
 	SavedImg,
-	SearchImgResult,
 	SearchPicture,
 } from "../../../types/picture.type";
 import { TRes } from "../../../types/app.types";
 
-export const useGetAllPicture = (page: number, pageSize: number) => {
+export const useGetAllPicture = (page: number = 0, pageSize: number = 0) => {
 	return useQuery({
 		queryKey: ["pictures", page, pageSize],
 		queryFn: async () => {
 			const data = await Api.get<AllPictures>(
 				`${ENDPOINT.PICTURE.PICTURES}?page=${page}&pageSize=${pageSize}`
 			);
+			console.log("data query", data);
 			return data;
 		},
 	});

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useGetComments } from "../../common/api/queries/comments.queries";
 import ErrorDisplay from "../Error/ErrorDisplay";
-import ChildComment from "./Comment";
 import styles from "./Comments.module.css";
 import { useAddComment } from "../../common/api/mutation/mutation";
 import { useQueryClient } from "@tanstack/react-query";
@@ -9,7 +8,7 @@ import { AddComment } from "../../types/comment.types";
 import Reply from "./Reply";
 
 function CommentsV2({ imgId }: { imgId: string | undefined }) {
-	const { data, isLoading, isError, error } = useGetComments(imgId);
+	const { data, isError, error } = useGetComments(imgId);
 
 	const addComment = useAddComment();
 

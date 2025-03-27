@@ -82,7 +82,7 @@ function Replies({
 							};
 
 							replyToComment.mutate(replyData, {
-								onSuccess: (data) => {
+								onSuccess: () => {
 									queryClient.invalidateQueries({ queryKey: ["getReplies"] });
 									setReply("");
 								},

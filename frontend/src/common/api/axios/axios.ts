@@ -9,7 +9,6 @@ import {
 } from "../../../helpers/auth.helper";
 import { ENDPOINT } from "../../constants/endpoint.constant";
 import { RefreshToken } from "../../../types/auth.type";
-import { promise } from "zod";
 
 export const Api = axios.create({
 	baseURL: BASE_DOMAIN_API,

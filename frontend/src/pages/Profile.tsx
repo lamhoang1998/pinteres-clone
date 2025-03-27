@@ -1,23 +1,18 @@
 import styles from "./Profile.module.css";
-import { useAppDispatch, useAppSelector } from "../hooks";
+import { useAppSelector } from "../hooks";
 import { useEffect, useRef, useState } from "react";
-import {
-	useUpdateAvatarCloud,
-	useUpdateAvatarLocal,
-} from "../common/api/mutation/mutation";
 
-import { checkPathAvatar, resError } from "../helpers/function.helper";
+import { checkPathAvatar } from "../helpers/function.helper";
 import { Link } from "react-router-dom";
 import {
 	useCreatedImgByUser,
 	useSavedImgByUser,
 } from "../common/api/queries/images.queries";
 import RenderImages from "../component/renderImages/RenderImages";
-import { CreatedImg, Images, SavedImg, SaveImg } from "../types/picture.type";
+import { Images } from "../types/picture.type";
 
 function Profile() {
 	const userInfo = useAppSelector((store) => store.userState.info);
-	const dispatch = useAppDispatch();
 
 	const createdImg = useCreatedImgByUser();
 
