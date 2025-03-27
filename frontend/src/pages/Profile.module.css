@@ -1,0 +1,144 @@
+.profileContainer {
+	min-height: 100vh;
+}
+
+.profileContainer > * + * {
+	margin-top: 32px;
+}
+
+.avatarContainer {
+	margin: auto;
+	width: 24%;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.avatarProfile {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	flex: 1;
+}
+
+.avatarInfo {
+	flex: 1;
+}
+
+.viewProfileBtn {
+	padding: 10px 8px;
+	background-color: beige;
+	border-radius: 24px;
+	flex: 1;
+}
+
+.viewProfileBtn:hover {
+	background-color: blanchedalmond;
+	transition: 0.75s;
+}
+
+.changingAvatarContainer {
+	padding-inline: 24px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.uploadAvatarInput {
+	display: none;
+	width: 80%;
+	height: 100px;
+	border: 2px solid #333333;
+}
+
+.updateBtn {
+	width: 100%;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 200px;
+	gap: 10px;
+}
+
+.displayAvatar {
+	width: 100%;
+	min-height: 150px;
+}
+
+.updateBtnContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.updateBtnImg {
+	flex: 1 0 50%;
+}
+
+.updateBtnImg img {
+	width: 150px;
+	height: 150px;
+	margin-inline-start: auto;
+}
+
+.updateBtnText {
+	display: block;
+	flex: 1 0 50%;
+	text-align: left;
+	font-size: large;
+}
+
+.changingBtnContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: auto;
+	width: 24%;
+}
+
+.previewImg {
+	width: 250px;
+	height: 250px;
+	border-radius: 50%;
+}
+
+.changingBtnContainer > * + * {
+	margin-left: 8px;
+}
+
+.btnUpdateActive {
+	background: rgb(45, 183, 242) !important;
+}
+
+.testClassName {
+	font-size: 3rem;
+}
+
+.pendingButton {
+	animation: rotate 1.5s infinite linear;
+}
+
+@keyframes rotate {
+	to {
+		transform: rotate(1turn);
+	}
+}
+
+.toggleBtnContainer {
+	text-align: center;
+	font-size: 16px;
+	font-weight: 500;
+	color: #333;
+}
+
+.toggleBtnContainer > * + * {
+	margin-left: 12px;
+}
+
+.savedPictureContainer {
+}
+
+.uploadedPictureContainer {
+}

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction, ErrorRequestHandler } from "express";
 import { responseError } from "./response.helper";
+import { JsonWebTokenError, TokenExpiredError } from "jsonwebtoken";
 
 export const handleError: ErrorRequestHandler = (
 	err,
@@ -8,7 +9,10 @@ export const handleError: ErrorRequestHandler = (
 	next: NextFunction
 ) => {
 	const resData = responseError(err.message, err.code);
-	console.log(resData);
+
+	if (resData.message === "jwt expired") resData.code = 403;
+
+	console.log({ resData });
 	res.status(resData.code).json(resData);
 };
 

@@ -15,6 +15,17 @@ export const pictureController = {
 		}
 	},
 
+	update: async function (req: Request, res: Response, next: NextFunction) {
+		try {
+			const result = await pictureService.update(req);
+
+			const response = responseSuccess(result, `upload picture successfully`);
+			res.status(response.code).json(response);
+		} catch (err) {
+			next(err);
+		}
+	},
+
 	getAll: async function (req: Request, res: Response, next: NextFunction) {
 		try {
 			const result = await pictureService.getAll(req);

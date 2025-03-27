@@ -11,7 +11,7 @@ app.use(cors());
 app.use(rootRouter);
 app.use(handleError);
 
-const PORT = 3000;
+export const PORT = 3000;
 
 app.listen(PORT, () => {
 	console.log(`server running on ${PORT}`);

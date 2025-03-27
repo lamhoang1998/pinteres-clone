@@ -10,6 +10,25 @@ cloudinary.config({
 	api_secret: CLOUDINARY_SECRET_KEY,
 });
 
+export const deleteCloudImage = async (publicId: string) => {
+	if (!publicId) {
+		console.log({ publicId });
+		return true;
+	}
+
+	const data = await cloudinary.uploader.destroy(publicId);
+
+	if (data?.result === `ok`) {
+		console.log({ deleted: publicId });
+		return true;
+	} else {
+		console.log(
+			`Không thể xóa file ${publicId} trên Cloudinary: ${data?.error.message}`
+		);
+		return false;
+	}
+};
+
 const storage = new CloudinaryStorage({
 	cloudinary: cloudinary,
 	params: async (
@@ -21,6 +40,7 @@ const storage = new CloudinaryStorage({
 		};
 	},
 });
+
 const uploadCloud = multer({ storage: storage });
 
 export default uploadCloud;

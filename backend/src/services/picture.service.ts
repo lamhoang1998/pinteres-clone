@@ -7,6 +7,8 @@ export const pictureService = {
 		const file = req.file;
 		if (!file) throw new BadRequestError(`No file in the request`);
 
+		console.log({ body: req.body });
+
 		const newImg = await prisma.images.create({
 			data: {
 				imgName: req.body.imgName,
@@ -17,6 +19,43 @@ export const pictureService = {
 		});
 
 		return newImg;
+	},
+
+	update: async function (req: Request) {
+		const imgDetails = await prisma.images.findUnique({
+			where: {
+				imgId: +req?.params?.imgId,
+			},
+		});
+
+		const numberOfKey = Object.keys(req.body).length;
+
+		if (numberOfKey > 3) {
+			throw new BadRequestError(`there is more than required image info`);
+		} else if (numberOfKey === 0) {
+			throw new BadRequestError(
+				`please give some data about the image that you need to update`
+			);
+		}
+
+		for (const key in req.body) {
+			if (key !== "imgName" && key !== "desc" && key !== "url") {
+				throw new BadRequestError(
+					` please submit imgName or desc or url to update the image`
+				);
+			}
+		}
+
+		const updateImg = await prisma.images.update({
+			where: { imgId: +req?.params?.imgId },
+			data: {
+				imgName: req.body?.imgName ? req.body?.imgName : imgDetails?.imgName,
+				url: req?.file?.filename ? req?.file?.filename : imgDetails?.url,
+				desc: req.body.desc ? req.body.desc : imgDetails?.desc,
+			},
+		});
+
+		return `success`;
 	},
 
 	getAll: async function (req: Request) {
@@ -34,8 +73,11 @@ export const pictureService = {
 		console.log({ totalPage });
 
 		const allPictures = await prisma.images.findMany({
-			take: pageSize,
-			skip: (page - 1) * pageSize,
+			// take: pageSize,
+			// skip: (page - 1) * pageSize,
+			include: {
+				users: true,
+			},
 			orderBy: {
 				created_at: `desc`,
 			},
@@ -75,37 +117,46 @@ export const pictureService = {
 		const pictureDetails = await prisma.images.findUnique({
 			where: { imgId: +id },
 			select: {
+				imgId: true,
 				imgName: true,
+				url: true,
 				desc: true,
-				users: { select: { userId: true, fullName: true } },
+				users: { select: { userId: true, fullName: true, avatar: true } },
 			},
 		});
 		return pictureDetails;
 	},
 	savedPictureListByUser: async function (req: Request) {
-		const savedImage = await prisma.savedimage.findMany({
+		const savedImage = await prisma.users.findUnique({
 			where: { userId: req.user?.userId },
 			select: {
 				userId: true,
-				images: {
-					select: { imgId: true, imgName: true, desc: true, url: true },
+				savedimage: {
+					select: { images: true },
 				},
 			},
 		});
 
-		return savedImage;
+		if (!savedImage) {
+			return null;
+		}
+
+		// Transform the data to the desired structure
+		const savedImageFlattened = {
+			userId: savedImage.userId,
+			images: savedImage.savedimage.map((savedImage) => savedImage.images),
+		};
+
+		return savedImageFlattened;
 	},
 	createdPicturesList: async function (req: Request) {
 		const createdPictures = await prisma.users.findUnique({
 			where: {
-				userId: +req.params?.userId,
+				userId: req.user?.userId,
 			},
 			select: {
 				userId: true,
-				fullName: true,
-				images: {
-					select: { imgId: true, imgName: true, desc: true, url: true },
-				},
+				images: true,
 			},
 		});
 
@@ -161,8 +212,6 @@ export const pictureService = {
 				userId: true,
 			},
 		});
-
-		console.log({ savedImg });
 
 		return savedImg;
 	},

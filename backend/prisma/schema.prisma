@@ -1,7 +1,6 @@
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["omitApi"]
-
 }
 
 datasource db {
@@ -10,17 +9,20 @@ datasource db {
 }
 
 model comments {
-  commentId      Int       @id @default(autoincrement())
-  userId         Int?
-  imgId          Int?
-  commentContent String?   @db.VarChar(255)
-  created_at     DateTime? @default(now()) @db.Timestamp(0)
-  updated_at     DateTime? @default(now()) @db.Timestamp(0)
-  users          users?    @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "comments_ibfk_1")
-  images         images?   @relation(fields: [imgId], references: [imgId], onDelete: Cascade, onUpdate: NoAction, map: "comments_ibfk_2")
+  commentId                                                               Int                     @id @default(autoincrement())
+  userId                                                                  Int?
+  imgId                                                                   Int?
+  commentContent                                                          String?                 @db.VarChar(255)
+  hierachy                                                                Int?
+  created_at                                                              DateTime?               @default(now()) @db.Timestamp(0)
+  updated_at                                                              DateTime?               @default(now()) @db.Timestamp(0)
+  users                                                                   users?                  @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "comments_ibfk_1")
+  images                                                                  images?                 @relation(fields: [imgId], references: [imgId], onDelete: Cascade, onUpdate: NoAction, map: "comments_ibfk_2")
+  parentchildrencomment_parentchildrencomment_parentCommentIdTocomments   parentchildrencomment[] @relation("parentchildrencomment_parentCommentIdTocomments")
+  parentchildrencomment_parentchildrencomment_childrenCommentIdTocomments parentchildrencomment[] @relation("parentchildrencomment_childrenCommentIdTocomments")
 
-  @@index([imgId], map: "imgId")
   @@index([userId], map: "userId")
+  @@index([imgId], map: "comments_ibfk_2")
 }
 
 model images {
@@ -47,19 +49,35 @@ model savedimage {
   users      users?    @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "savedimage_ibfk_1")
   images     images?   @relation(fields: [imgId], references: [imgId], onDelete: Cascade, onUpdate: NoAction, map: "savedimage_ibfk_2")
 
-  @@index([imgId], map: "imgId")
   @@index([userId], map: "userId")
+  @@index([imgId], map: "savedimage_ibfk_2")
 }
 
 model users {
-  userId     Int          @id @default(autoincrement())
-  email      String       @db.VarChar(255)
-  passWord   String       @db.VarChar(255)
-  fullName   String?      @db.VarChar(255)
-  avatar     String?      @db.VarChar(255)
-  createdAt  DateTime?    @default(now()) @db.Timestamp(0)
-  updatedAt  DateTime?    @default(now()) @db.Timestamp(0)
-  comments   comments[]
-  images     images[]
-  savedimage savedimage[]
+  userId                     Int          @id @default(autoincrement())
+  email                      String       @db.VarChar(255)
+  passWord                   String       @db.VarChar(255)
+  fullName                   String?      @db.VarChar(255)
+  avatar                     String?      @db.VarChar(255)
+  isVerified                 Boolean?     @default(false)
+  verificationToken          String?      @db.VarChar(255)
+  verificationTokenExpiresAt DateTime?    @db.Timestamp(0)
+  createdAt                  DateTime?    @default(now()) @db.Timestamp(0)
+  updatedAt                  DateTime?    @default(now()) @db.Timestamp(0)
+  comments                   comments[]
+  images                     images[]
+  savedimage                 savedimage[]
+}
+
+model parentchildrencomment {
+  parentChildrenId                                           Int       @id @default(autoincrement())
+  parentCommentId                                            Int?
+  childrenCommentId                                          Int?
+  create_at                                                  DateTime? @default(now()) @db.Timestamp(0)
+  update_at                                                  DateTime? @default(now()) @db.Timestamp(0)
+  comments_parentchildrencomment_parentCommentIdTocomments   comments? @relation("parentchildrencomment_parentCommentIdTocomments", fields: [parentCommentId], references: [commentId], onDelete: Cascade, onUpdate: NoAction, map: "parentchildrencomment_ibfk_1")
+  comments_parentchildrencomment_childrenCommentIdTocomments comments? @relation("parentchildrencomment_childrenCommentIdTocomments", fields: [childrenCommentId], references: [commentId], onDelete: Cascade, onUpdate: NoAction, map: "parentchildrencomment_ibfk_2")
+
+  @@index([parentCommentId], map: "parentchildrencomment_ibfk_1")
+  @@index([childrenCommentId], map: "parentchildrencomment_ibfk_2")
 }

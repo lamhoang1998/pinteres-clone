@@ -1,0 +1,103 @@
+.Container {
+	column-count: 5;
+	column-gap: 10px;
+	padding: 10px;
+}
+
+.imgContainer {
+	break-inside: avoid;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 22px;
+	position: relative;
+}
+
+.imgContainer img {
+	transition: filter 0.3s ease; /* Smooth transition for the filter */
+}
+
+/* Darken the image on hover */
+.imgContainer:hover img {
+	filter: brightness(0.7); /* Adjust the value to control darkness */
+}
+
+.saveBtn {
+	position: absolute;
+	width: 80px;
+	height: 40px;
+	background-color: rgb(194, 19, 19);
+	text-align: center;
+	right: 20px;
+	top: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 8px;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.savedBtn {
+	position: absolute;
+	width: 80px;
+	height: 40px;
+	background-color: rgb(7, 6, 6);
+	text-align: center;
+	right: 20px;
+	top: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 8px;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	color: white;
+}
+
+.imgContainer:hover .saveBtn {
+	opacity: 1;
+}
+
+.imgContainer:hover .savedBtn {
+	opacity: 1;
+}
+
+.img {
+	width: 100%;
+	object-fit: cover;
+	border-radius: 12px;
+}
+
+.userInfo {
+	display: flex;
+}
+
+.fullName {
+}
+
+.userAvatar {
+}
+
+@media screen and (max-width: 1250px) {
+	.Container {
+		column-count: 4;
+	}
+}
+
+@media screen and (max-width: 1050px) {
+	.Container {
+		column-count: 3;
+	}
+}
+
+@media screen and (max-width: 750px) {
+	.Container {
+		column-count: 2;
+	}
+}
+
+@media screen and (max-width: 550px) {
+	.Container {
+		column-count: 1;
+	}
+}

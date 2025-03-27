@@ -1,0 +1,31 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding-inline: 16px;
+	margin-block-end: 8px;
+}
+
+.userAvatarContainer {
+	display: flex;
+	gap: 24px;
+}
+
+.userAvatar {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+}
+
+.commentNameContainer {
+	display: flex;
+	flex-direction: column;
+}
+
+.commentContent {
+}
+
+.replyBtn {
+	margin-left: 98px;
+	text-align: left;
+}

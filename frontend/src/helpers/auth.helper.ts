@@ -1,19 +1,21 @@
+import { useAuth } from "../context/authContext";
 import { LoginMetaData } from "../types/auth.type";
+import rootRouter from "../routers/rootRouter";
 
 export function getUserFromLocal() {
 	return localStorage.getItem("user");
 }
 
-export function setUserToLocal(data: LoginMetaData) {
-	localStorage.setItem("user", JSON.stringify(data));
-}
+// export function setUserToLocal(data: LoginMetaData) {
+// 	localStorage.setItem("user", data);
+// }
 
 export function getAccessToken() {
 	return localStorage.getItem("accessToken");
 }
 
 export function setAccessToken(data: string) {
-	localStorage.setItem("accessToken", JSON.stringify(data));
+	localStorage.setItem("accessToken", data);
 }
 
 export function getRefreshToken() {
@@ -21,5 +23,12 @@ export function getRefreshToken() {
 }
 
 export function setRefreshToken(data: string) {
-	localStorage.setItem("refreshToken", JSON.stringify(data));
+	localStorage.setItem("refreshToken", data);
+}
+
+export function logOut() {
+	// localStorage.removeItem(`accessToken`);
+	// localStorage.removeItem(`refreshToken`);
+
+	rootRouter.navigate(`/login`);
 }

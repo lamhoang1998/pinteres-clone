@@ -1,0 +1,19 @@
+.commentsContainer {
+	margin-block-start: 20px;
+	margin-inline: auto;
+	max-width: 1150px;
+	margin-block-end: 6px;
+}
+
+.inputBtnContainer {
+}
+
+.commentInput {
+	width: 100%;
+	height: 50px;
+	border: 1px solid #333333;
+	border-radius: 8px;
+}
+
+.commentBtn {
+}

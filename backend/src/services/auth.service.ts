@@ -5,7 +5,7 @@ import {
 	UnauthorizedError,
 } from "../common/helpers/error.helper";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import jwt, { verify } from "jsonwebtoken";
 import { JwtPayload } from "jsonwebtoken";
 
 import tokenService from "./token.service";
@@ -14,11 +14,11 @@ import {
 	REFRESH_TOKEN_SECRET,
 } from "../common/constant/app.constant";
 import { LoginUserExist, RefreshTokenUser } from "../common/types";
+import sendEmail from "../common/email/sendEmail.email";
 
 export const authService = {
 	register: async function (req: Request) {
 		const { email, passWord, fullName } = req.body;
-		console.log({ email, passWord, fullName });
 
 		const userExist = await prisma.users.findFirst({
 			where: {
@@ -26,17 +26,31 @@ export const authService = {
 			},
 		});
 
-		console.log(userExist);
-
 		if (userExist)
 			throw new BadRequestError(
 				`Email already existed, please give another email`
 			);
 
 		const hashPassword = bcrypt.hashSync(passWord, 10);
+		const verificationToken = Math.floor(
+			100000 + Math.random() * 900000
+		).toString();
+
+		const expirationTime = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+		const verificationTokenExpiresAt = expirationTime.toISOString();
+
 		const newUser = await prisma.users.create({
-			data: { email, fullName: fullName, passWord: hashPassword },
+			data: {
+				email,
+				fullName: fullName,
+				passWord: hashPassword,
+				verificationToken: verificationToken,
+				verificationTokenExpiresAt: verificationTokenExpiresAt,
+			},
 		});
+
+		sendEmail(newUser.email, verificationToken);
 
 		return newUser;
 	},
@@ -110,5 +124,33 @@ export const authService = {
 		const tokens = tokenService.createTokens<RefreshTokenUser>(user);
 
 		return tokens;
+	},
+	verifyToken: async (req: Request) => {
+		const { verificationToken } = req.body;
+
+		if (verificationToken && typeof verificationToken === "string") {
+			const user = await prisma.users.findFirst({
+				where: { verificationToken: verificationToken },
+			});
+
+			const submittedDate = new Date();
+
+			if (user && user?.verificationTokenExpiresAt) {
+				if (submittedDate <= user?.verificationTokenExpiresAt) {
+					await prisma.users.update({
+						where: { userId: user.userId },
+						data: {
+							isVerified: true,
+						},
+					});
+				} else {
+					throw new BadRequestError("token is invalid");
+				}
+			}
+
+			return `success`;
+		} else {
+			throw new BadRequestError("verificationToken is not a string ");
+		}
 	},
 };

@@ -7,9 +7,7 @@ export const authController = {
 	register: async function (req: Request, res: Response, next: NextFunction) {
 		try {
 			const result = await authService.register(req);
-			console.log({ result });
 			const response = responseSuccess(result, `registered successfully`);
-			console.log({ response });
 			res.status(response.code).json(response);
 		} catch (err) {
 			next(err);
@@ -32,6 +30,15 @@ export const authController = {
 		try {
 			const result = await authService.refreshToken(req);
 			const response = responseSuccess(result, `successfully sent back token`);
+			res.status(response.code).json(response);
+		} catch (err) {
+			next(err);
+		}
+	},
+	verifyToken: async (req: Request, res: Response, next: NextFunction) => {
+		try {
+			const result = await authService.verifyToken(req);
+			const response = responseSuccess(result, `successfully verified email`);
 			res.status(response.code).json(response);
 		} catch (err) {
 			next(err);

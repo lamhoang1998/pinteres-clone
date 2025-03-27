@@ -1,3 +1,5 @@
+import { TRes } from "./app.types";
+
 export type LoginBody = {
 	email: string;
 	passWord: string;
@@ -12,12 +14,14 @@ export type LoginMetaData = {
 	};
 };
 
-export type LoginResult = {
-	status: string;
-	message: string;
-	code: number;
-	metaData: LoginMetaData;
-};
+// export type LoginResult = {
+// 	status: string;
+// 	message: string;
+// 	code: number;
+// 	metaData: LoginMetaData;
+// };
+
+export type LoginResult = TRes<LoginMetaData>;
 
 export type RegisterBody = {
 	email: string;
@@ -38,3 +42,12 @@ export interface RegisterResult {
 	code: number;
 	metaData: RegisterMetaData;
 }
+
+export type RefreshToken = {
+	status: string;
+	message: string;
+	metaData: {
+		accessToken: string;
+		refreshToken: string;
+	};
+};

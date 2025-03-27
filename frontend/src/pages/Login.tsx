@@ -2,7 +2,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema, loginSchema } from "../types/loginSchema";
 import { useLoginMutation } from "../common/api/mutation/mutation";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { setAccessToken, setRefreshToken } from "../helpers/auth.helper";
+import { toast } from "react-toastify";
 
 function Login() {
 	const navigate = useNavigate();
@@ -18,9 +20,16 @@ function Login() {
 	const login = useLoginMutation();
 
 	const onSubmit = handleSubmit((data) => {
-		console.log(data);
-		login.mutate(data);
-		navigate("/");
+		login.mutate(data, {
+			onSuccess: (data) => {
+				setAccessToken(data.data.metaData.tokens.accessToken);
+				setRefreshToken(data.data.metaData.tokens.refreshToken);
+
+				toast.success("successfully signed in");
+
+				navigate("/");
+			},
+		});
 	});
 
 	return (
@@ -58,6 +67,7 @@ function Login() {
 				{errors.passWord && (
 					<span className="text-red-500">{errors.passWord.message}</span>
 				)}
+
 				<span>
 					<button
 						type="submit"
@@ -66,6 +76,7 @@ function Login() {
 						Login
 					</button>
 				</span>
+				<span>reset password?</span>
 			</div>
 		</form>
 	);

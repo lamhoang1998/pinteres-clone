@@ -1,0 +1,132 @@
+.container {
+	z-index: 999;
+}
+
+.backDrop {
+	position: fixed;
+	inset: 0;
+	background-color: rgb(0 0 0 / 0.5);
+	z-index: 100;
+}
+
+.postBody {
+	position: fixed;
+	inset-block: 3em;
+	inset-inline: 20%;
+	padding: 2em 3em;
+	background-color: white;
+	overflow: auto;
+	z-index: 200;
+}
+
+.closeBtn {
+	position: absolute;
+	right: 20px;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 20px;
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	background-color: #f9f9f9;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.label {
+	font-size: 14px;
+	font-weight: 500;
+	color: #333;
+	margin-bottom: 8px;
+}
+
+.input {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 14px;
+	color: #333;
+	box-sizing: border-box;
+	transition: border-color 0.3s ease;
+}
+
+.input:focus {
+	border-color: #007bff;
+	outline: none;
+}
+
+.updateImgInput {
+	display: none;
+	border: 2px solid #333333;
+}
+
+.textarea {
+	border: 2px solid #333333; /* Add a border */
+	padding: 8px; /* Optional: Add padding for better appearance */
+	width: 100%; /* Optional: Make the textarea fill its container */
+	box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+}
+
+/* Optional: Add styles for when the textarea is focused */
+.textarea:focus {
+	border-color: #007bff; /* Change border color on focus */
+	outline: none; /* Remove the default browser outline */
+}
+
+.updateBtnText {
+	font-size: 14px;
+	color: #007bff;
+	font-weight: 500;
+}
+
+.editImgContainer {
+	position: relative;
+}
+
+.deleteImg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	display: none;
+	color: #e0e0e0;
+	background-color: rgb(28, 87, 204);
+	padding: 10px;
+	border-radius: 8px;
+}
+
+.editImgContainer:hover .deleteImg {
+	display: inline-block;
+}
+
+.deleteImg:hover {
+	background-color: #007bff;
+}
+
+.updateBtnText span {
+	cursor: pointer;
+}
+
+.updateBtnText span:hover {
+	text-decoration: underline;
+}
+
+.button {
+	padding: 10px 20px;
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	font-size: 14px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.button:hover {
+	background-color: #0056b3;
+}

@@ -41,4 +41,42 @@ export const userController = {
 			next(err);
 		}
 	},
+
+	getInfo: async function (req: Request, res: Response, next: NextFunction) {
+		try {
+			const result = await userService.getInfo(req);
+			const response = responseSuccess(result, `get user's info sucessfully`);
+			res.status(response.code).json(response);
+		} catch (err) {
+			next(err);
+		}
+	},
+
+	uploadAvatarCloud: async function (
+		req: Request,
+		res: Response,
+		next: NextFunction
+	) {
+		try {
+			const result = await userService.uploadAvatar(req);
+			const response = responseSuccess(result, `sucessfully`);
+			res.status(response.code).json(response);
+		} catch (err) {
+			next(err);
+		}
+	},
+
+	uploadAvatarLocal: async function (
+		req: Request,
+		res: Response,
+		next: NextFunction
+	) {
+		try {
+			const result = await userService.uploadAvatar(req);
+			const response = responseSuccess(result, `sucessfully`);
+			res.status(response.code).json(response);
+		} catch (err) {
+			next(err);
+		}
+	},
 };

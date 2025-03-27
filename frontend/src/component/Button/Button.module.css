@@ -1,0 +1,25 @@
+.buttonLarge {
+	font-size: 3rem;
+}
+
+.buttonSmall {
+}
+
+.buttonMedium {
+}
+
+.button {
+	padding: 0.5rem;
+	background: lightgrey;
+	border: 1px solid grey;
+	font-size: 1rem;
+	display: inline-flex;
+	gap: 0.5rem;
+	align-items: center;
+	justify-content: center;
+	border-radius: 5px;
+	cursor: pointer;
+	display: flex;
+	width: 150px;
+	height: 52px;
+}

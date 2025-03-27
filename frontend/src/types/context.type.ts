@@ -1,13 +1,20 @@
-export type UserInfo =
+import { Images, imgDetails, SearchImgResult } from "./picture.type";
+
+export type UserToken =
 	| {
-			userId: number | undefined;
-			email: string | undefined;
+			accessToken: string | undefined;
 			refreshToken: string | undefined;
 	  }
 	| undefined;
 
 export type AuthContextType = {
-	userInfo: UserInfo;
-	setUser: (userInfo: UserInfo) => void;
-	isLogged: boolean;
+	showModal: boolean;
+	toggleShowModal: () => void;
+	showEdit: boolean;
+	toggleShowEdit: () => void;
+	imgDetails: imgDetails | undefined;
+	setImgDetails: (imgDetails: imgDetails | undefined) => void;
+	searchValueContext: string | undefined;
+	setSearchValueContext: (searchValue: string) => void;
+	searchResult: Images[] | undefined;
 };

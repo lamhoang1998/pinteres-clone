@@ -9,22 +9,29 @@ const pictureRouter = express.Router();
 pictureRouter.post(
 	"/upload",
 	protect,
-	uploadCloud.single("image"),
+	uploadCloud.single("img"),
 	pictureController.create
 );
 
-pictureRouter.get("/pictures", protect, pictureController.getAll);
-pictureRouter.get("/search-picture", protect, pictureController.searchPicture);
+pictureRouter.put(
+	"/update/:imgId",
+	protect,
+	uploadCloud.single("img"),
+	pictureController.update
+);
+
+pictureRouter.get("/pictures", pictureController.getAll);
+pictureRouter.get("/search-picture", pictureController.searchPicture);
 pictureRouter.get("/details/:id", protect, pictureController.getPictureDetails);
 
 pictureRouter.get(
-	"/saved-picture-list-by-user/:userId",
+	"/saved-picture-list-by-user",
 	protect,
 	pictureController.savedPictureListByUser
 );
 
 pictureRouter.get(
-	"/created-pictures-list/:userId",
+	"/created-pictures-list",
 	protect,
 	pictureController.createdPicturesList
 );

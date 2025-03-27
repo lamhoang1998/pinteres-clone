@@ -1,0 +1,45 @@
+.container {
+	margin-block-start: 20px;
+	margin-inline: auto;
+}
+
+.userAvatarContainer {
+	display: flex;
+	gap: 24px;
+}
+
+.userAvatar {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+}
+
+.commentNameContainer {
+	display: flex;
+	flex-direction: column;
+}
+
+.replyBtn {
+	margin-left: 108px;
+	text-align: left;
+}
+
+.commentReply {
+	width: 90%;
+	height: 50px;
+	border: 1px solid #333333;
+	border-radius: 8px;
+}
+
+.inputContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	justify-content: center;
+	align-items: end;
+}
+
+.saveBtn {
+	display: block;
+	margin-left: auto;
+}
