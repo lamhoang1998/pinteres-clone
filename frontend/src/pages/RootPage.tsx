@@ -17,20 +17,23 @@ function RootPage({ children, protect = false }: Props) {
 		(store) => store.userState.info?.isVerified
 	);
 
-	useEffect(function () {
-		if (protect) {
-			dispatch(getInfo());
-		}
-	}, []);
+	useEffect(
+		function () {
+			console.log("isProtect", protect);
+			if (protect) {
+				console.log("protect");
+				dispatch(getInfo());
+			}
+		},
+		[protect]
+	);
 
 	if (!protect) {
 		return <div>{children}</div>;
-	}
-
-	if (protect) {
+	} else {
 		if (isVerified) {
 			return <div>{children}</div>;
-		} else {
+		} else if (!isVerified && isVerified !== undefined) {
 			navigate("/email-verify");
 		}
 	}

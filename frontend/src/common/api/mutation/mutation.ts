@@ -143,3 +143,11 @@ export function useUpdateImg() {
 		},
 	});
 }
+
+export function useVerifyEmail() {
+	return useMutation({
+		mutationFn: (verifyToken: { verificationToken: string }) => {
+			return Api.post<string>(ENDPOINT.AUTH.VERIFYTOKEN, verifyToken);
+		},
+	});
+}

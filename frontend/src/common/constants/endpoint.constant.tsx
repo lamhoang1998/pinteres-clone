@@ -3,6 +3,7 @@ export const ENDPOINT = {
 		LOGIN: `auth/login`,
 		REGISTER: `auth/register`,
 		REFRESHTOKEN: `auth/refresh-token`,
+		VERIFYTOKEN: `auth/verify-token`,
 	},
 	PICTURE: {
 		PICTURES: `picture/pictures`,

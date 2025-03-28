@@ -35,6 +35,7 @@ export default userSlice.reducer;
 
 export const getInfo = () => {
 	return async (dispatch: AppDispatch) => {
+		console.log("dispatch");
 		ApiWithToken.get<TRes<UserInfo>>(ENDPOINT.USER.GETINFO)
 			.then(({ data }) => {
 				console.log("user data", data);

@@ -5,6 +5,7 @@ import AppLayOut from "../component/layouts/AppLayOut";
 import clientRouter from "./clientRouter";
 import SignUp from "../pages/SignUp";
 import EmailVerification from "../pages/EmailVerification";
+import RootPage from "../pages/RootPage";
 
 const rootRouter = createBrowserRouter([
 	{
@@ -14,7 +15,11 @@ const rootRouter = createBrowserRouter([
 	},
 	{
 		path: "/login",
-		element: <Login />,
+		element: (
+			<RootPage>
+				<Login />
+			</RootPage>
+		),
 	},
 	{
 		path: "/register",
@@ -22,11 +27,19 @@ const rootRouter = createBrowserRouter([
 	},
 	{
 		path: "/sign-up",
-		element: <SignUp />,
+		element: (
+			<RootPage>
+				<SignUp />
+			</RootPage>
+		),
 	},
 	{
 		path: "email-verify",
-		element: <EmailVerification />,
+		element: (
+			<RootPage>
+				<EmailVerification />,
+			</RootPage>
+		),
 	},
 ]);
 
