@@ -1,7 +1,7 @@
 import { ReactNode, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { getInfo } from "../reducers/users.reducers";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 type Props = {
 	children: ReactNode;
@@ -10,6 +10,8 @@ type Props = {
 
 function RootPage({ children, protect = false }: Props) {
 	const dispatch = useAppDispatch();
+
+	const location = useLocation();
 
 	const navigate = useNavigate();
 
@@ -25,7 +27,7 @@ function RootPage({ children, protect = false }: Props) {
 				dispatch(getInfo());
 			}
 		},
-		[protect]
+		[location]
 	);
 
 	if (!protect) {
