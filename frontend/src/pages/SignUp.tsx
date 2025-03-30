@@ -33,8 +33,8 @@ function SignUp() {
 				toast.success("successfully register");
 				navigate("/email-verify");
 			},
-			onError: () => {
-				toast.error("try again!");
+			onError: (error) => {
+				toast.error(error.response?.data.message);
 			},
 		});
 	});

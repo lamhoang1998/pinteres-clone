@@ -13,6 +13,8 @@ import { UploadAvatar } from "../../../types/user.type";
 import { TRes } from "../../../types/app.types";
 import { AddComment, TypeReply } from "../../../types/comment.types";
 import { SaveImg, UploadImg } from "../../../types/picture.type";
+import { AxiosError } from "axios";
+import { ApiErrorResponse } from "../../../types/error.types";
 
 export function useLoginMutation() {
 	return useMutation({
@@ -34,9 +36,17 @@ export function useLoginMutation() {
 }
 
 export function useRegisterMutation() {
-	return useMutation({
-		mutationFn: (data: RegisterBody) => {
-			return Api.post<RegisterResult>(ENDPOINT.AUTH.REGISTER, data);
+	return useMutation<
+		RegisterResult,
+		AxiosError<ApiErrorResponse, RegisterBody>,
+		RegisterBody
+	>({
+		mutationFn: async (data: RegisterBody) => {
+			const response = await Api.post<RegisterResult>(
+				ENDPOINT.AUTH.REGISTER,
+				data
+			);
+			return response.data;
 		},
 		onSuccess() {
 			toast.success("successfully register");

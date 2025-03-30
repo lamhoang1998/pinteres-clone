@@ -1,5 +1,5 @@
 import { useGetAllPicture } from "../common/api/queries/images.queries";
-import { Images, Items } from "../types/picture.type";
+import { Items } from "../types/picture.type";
 import { useAuth } from "../context/authContext";
 import RenderImages from "../component/renderImages/RenderImages";
 import { UserInfo } from "../types/user.type";
@@ -40,7 +40,7 @@ function Home() {
 	return (
 		<div>
 			{searchResult ? (
-				<RenderImages<Images[]> data={searchResult} isSaved />
+				<RenderImages<Items<UserInfo>[]> data={searchResult} isSaved />
 			) : (
 				<RenderImages<Items<UserInfo>[]> data={items} isSaved />
 			)}

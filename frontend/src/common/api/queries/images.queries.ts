@@ -60,7 +60,6 @@ export const useCreatedImgByUser = () => {
 };
 
 export const useSearchImg = (searchValue: string | undefined) => {
-	console.log("search value query", searchValue);
 	return useQuery({
 		queryKey: ["searchImg", searchValue],
 		queryFn: async () => {

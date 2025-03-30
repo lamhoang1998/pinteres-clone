@@ -1,4 +1,5 @@
-import { Images, imgDetails } from "./picture.type";
+import { imgDetails, Items } from "./picture.type";
+import { UserInfo } from "./user.type";
 
 export type UserToken =
 	| {
@@ -16,5 +17,5 @@ export type AuthContextType = {
 	setImgDetails: (imgDetails: imgDetails | undefined) => void;
 	searchValueContext: string | undefined;
 	setSearchValueContext: (searchValue: string) => void;
-	searchResult: Images[] | undefined;
+	searchResult: Items<UserInfo>[] | undefined;
 };

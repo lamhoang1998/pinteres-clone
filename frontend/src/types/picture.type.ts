@@ -24,6 +24,7 @@ export type AllPictures = {
 	};
 };
 
+
 export type imgDetails = {
 	imgId: number;
 	imgName: string;
@@ -98,7 +99,7 @@ export type SearchImgResult = {
 	updated_at: string;
 };
 
-export type SearchPicture = TRes<Images[]>;
+export type SearchPicture = TRes<Items<UserInfo>[]>;
 
 export type EditImgData = {
 	imgId?: string;

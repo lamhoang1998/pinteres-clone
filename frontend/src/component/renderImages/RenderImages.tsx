@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Images, Items, SavedImg } from "../../types/picture.type";
+import { Items, SavedImg } from "../../types/picture.type";
 import styles from "./RenderImage.module.css";
 import { checkPathAvatar } from "../../helpers/function.helper";
 import { useSaveImg } from "../../common/api/mutation/mutation";
@@ -14,7 +14,7 @@ type RenderImagesProps<T> = {
 	isSaved?: boolean;
 };
 
-function RenderImages<T extends Images[] | Items<UserInfo>[]>({
+function RenderImages<T extends Items<UserInfo>[]>({
 	data,
 	isSaved,
 }: RenderImagesProps<T>) {
