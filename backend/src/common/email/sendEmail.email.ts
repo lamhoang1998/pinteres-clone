@@ -3,6 +3,8 @@ import { MAILTRAP_TOKEN } from "../constant/app.constant";
 
 function sendEmail(email: string, verifyCode: string) {
 	const token = MAILTRAP_TOKEN;
+	console.log("send email");
+	console.log("email", email);
 
 	const sender = {
 		email: "hello@demomailtrap.co",

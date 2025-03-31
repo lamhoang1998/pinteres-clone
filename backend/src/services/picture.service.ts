@@ -105,6 +105,7 @@ export const pictureService = {
 					startsWith: name,
 				},
 			},
+			include: { users: true },
 		});
 
 		return searchedPictures;

@@ -31,10 +31,10 @@ function RootPage({ children, protect = false }: Props) {
 	);
 
 	if (!protect) {
-		return <div>{children}</div>;
+		return children;
 	} else {
 		if (isVerified) {
-			return <div>{children}</div>;
+			return children;
 		} else if (!isVerified && isVerified !== undefined) {
 			navigate("/email-verify");
 		}
