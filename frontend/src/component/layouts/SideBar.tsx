@@ -4,7 +4,8 @@ import { CiSquarePlus } from "react-icons/ci";
 import { GoHome } from "react-icons/go";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { AiOutlineMessage } from "react-icons/ai";
-import { RiSettingsLine } from "react-icons/ri";
+import { IoIosLogOut } from "react-icons/io";
+import { logOut } from "../../helpers/auth.helper";
 
 function SideBar() {
 	const { toggleShowModal } = useAuth();
@@ -19,7 +20,7 @@ function SideBar() {
 				<IoMdNotificationsOutline className={styles.menuIcon} />
 				<AiOutlineMessage className={styles.menuIcon} />
 			</div>
-			<RiSettingsLine className={styles.menuIcon} />
+			<IoIosLogOut className={styles.menuIcon} onClick={logOut} />
 		</div>
 	);
 }

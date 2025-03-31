@@ -25,8 +25,8 @@ export function setRefreshToken(data: string) {
 }
 
 export function logOut() {
-	// localStorage.removeItem(`accessToken`);
-	// localStorage.removeItem(`refreshToken`);
+	localStorage.removeItem(`accessToken`);
+	localStorage.removeItem(`refreshToken`);
 
 	rootRouter.navigate(`/login`);
 }
