@@ -13,6 +13,9 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.use(express_1.default.static(path_1.default.join(__dirname, "../../frontend/dist")));
+app.get("*", (req, res) => {
+    res.sendFile(path_1.default.join(__dirname, "../../frontend/dist", "index.html"));
+});
 app.use(root_router_1.default);
 app.use(error_helper_1.handleError);
 exports.PORT = 3000;
