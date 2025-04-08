@@ -8,8 +8,8 @@ export const ACCESS_TOKEN_EXPIRED = process.env.ACCESS_TOKEN_EXPIRED;
 export const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET;
 export const REFRESH_TOKEN_EXPIRED = process.env.REFRESH_TOKEN_EXPIRED;
 export const CLOUDINARY_SECRET_KEY = process.env.CLOUDINARY_SECRET_KEY;
-export const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
-export const EMAIL_ADDRESS = process.env.EMAIL_ADDRESS;
+export const EMAIL_PASSWORD = process.env.SEND_EMAIL_PASSWORD;
+export const EMAIL_ADDRESS = process.env.SEND_EMAIL_ADDRESS;
 export const MAILTRAP_TOKEN = process.env.MAILTRAP_TOKEN;
 
 console.log({

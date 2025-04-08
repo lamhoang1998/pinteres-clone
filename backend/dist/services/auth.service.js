@@ -19,7 +19,8 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const token_service_1 = __importDefault(require("./token.service"));
 const app_constant_1 = require("../common/constant/app.constant");
-const sendEmail_email_1 = __importDefault(require("../common/email/sendEmail.email"));
+// import sendEmail from "../common/email/sendEmail.email";
+const sendMail_nodemailer_1 = __importDefault(require("../common/nodemailer/sendMail.nodemailer"));
 exports.authService = {
     register: function (req) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -44,7 +45,7 @@ exports.authService = {
                     verificationTokenExpiresAt: verificationTokenExpiresAt,
                 },
             });
-            (0, sendEmail_email_1.default)(newUser.email, verificationToken);
+            (0, sendMail_nodemailer_1.default)(newUser.email, verificationToken);
             return newUser;
         });
     },
