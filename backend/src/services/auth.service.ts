@@ -14,7 +14,8 @@ import {
 	REFRESH_TOKEN_SECRET,
 } from "../common/constant/app.constant";
 import { LoginUserExist, RefreshTokenUser } from "../common/types";
-import sendEmail from "../common/email/sendEmail.email";
+// import sendEmail from "../common/email/sendEmail.email";
+import sendEmail from "../common/nodemailer/sendMail.nodemailer";
 
 export const authService = {
 	register: async function (req: Request) {
@@ -32,6 +33,7 @@ export const authService = {
 			);
 
 		const hashPassword = bcrypt.hashSync(passWord, 10);
+
 		const verificationToken = Math.floor(
 			100000 + Math.random() * 900000
 		).toString();
